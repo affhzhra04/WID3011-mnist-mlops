@@ -50,22 +50,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # FIXED: Added Python installation layer for the container build environment
-      - name: Set up Python 3.10
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.10"
-
-      # FIXED: Installed dependencies so train and export can execute smoothly
-      - name: Install CPU-only PyTorch and dependencies
-        run: |
-          pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
-          pip install -r requirements.txt
-
       - name: Build Docker image
         run: |
-          python -m src.train
-          python -m src.export_onnx
           docker build -t mnist-api:ci .
 
       - name: Smoke test container
