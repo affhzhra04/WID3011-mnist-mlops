@@ -1,0 +1,24 @@
+# configs/config.yaml
+# Central configuration for the MNIST training pipeline.
+# train.py reads ALL hyperparameters from here — no hardcoded values.
+
+model:
+  input_channels: 1
+  num_classes: 10
+  dropout_rate: 0.25
+
+training:
+  epochs: 3
+  batch_size: 64
+  learning_rate: 0.001
+  seed: 42
+  device: "auto"          # "auto" → uses CUDA if available, else CPU
+
+data:
+  download: true
+  data_dir: "./data"
+  val_split: 0.1          # fraction of training data used for validation
+
+paths:
+  model_save_pt:   "./models/mnist_model.pt"
+  model_save_onnx: "./models/mnist_model.onnx"
